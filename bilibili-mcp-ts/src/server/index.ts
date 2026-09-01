@@ -16,7 +16,8 @@ import type {
     VideoDetailToolArgs,
     UserInfoToolArgs,
     HotContentToolArgs,
-    BangumiTimelineToolArgs
+    BangumiTimelineToolArgs,
+    DanmakuToolArgs
 } from '../types/tools.js';
 
 /**
@@ -94,7 +95,7 @@ export class BilibiliMCPServer {
                 },
                 {
                     name: 'bilibili_danmaku',
-                    description: '获取B站视频弹幕（新功能）',
+                    description: '获取B站视频实时弹幕（按 6 分钟分段返回，结果包含分段总数可翻页获取）',
                     inputSchema: {
                         type: 'object',
                         properties: {
@@ -104,7 +105,18 @@ export class BilibiliMCPServer {
                             },
                             cid: {
                                 type: 'number',
-                                description: '视频分P ID（可选，不传则自动获取）'
+                                description: '视频分P的CID（可选，默认第一个分P）'
+                            },
+                            dmType: {
+                                type: 'number',
+                                description: '弹幕类型（默认：1，视频弹幕）',
+                                default: 1
+                            },
+                            page: {
+                                type: 'number',
+                                description: '弹幕分段页码，每段覆盖6分钟（默认：1）',
+                                minimum: 1,
+                                default: 1
                             }
                         },
                         required: ['bvid']
@@ -190,7 +202,7 @@ export class BilibiliMCPServer {
                         return await this.handleVideoDetail(args as unknown as VideoDetailToolArgs);
 
                     case 'bilibili_danmaku':
-                        return await this.handleDanmaku(args as any);
+                        return await this.handleDanmaku(args as unknown as DanmakuToolArgs);
 
                     case 'bilibili_user_info':
                         return await this.handleUserInfo(args as unknown as UserInfoToolArgs);
@@ -248,7 +260,7 @@ export class BilibiliMCPServer {
     /**
      * 处理弹幕请求
      */
-    private async handleDanmaku(args: any) {
+    private async handleDanmaku(args: DanmakuToolArgs) {
         const result = await bilibiliService.getDanmaku(args);
 
         return {

@@ -17,7 +17,7 @@ export const BILIBILI_CONFIG = {
         USER_INFO: '/space/acc/info',
         USER_STAT: '/relation/stat',
         BANGUMI_TIMELINE: '/pgc/web/timeline',
-        DANMAKU: '/x/v1/dm/list.so',
+        DANMAKU_SEG: '/v2/dm/web/seg.so',
         COMMENT: '/v2/reply',
         REGION: '/index/top/feed/rcmd'
     },

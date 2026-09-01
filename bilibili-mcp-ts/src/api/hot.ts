@@ -77,11 +77,8 @@ export class HotContentService {
             // 提取视频列表
             let videos: any[] = [];
 
-            if (type === 'rank' || type === 'music') {
-                videos = response.list || [];
-            } else {
-                videos = response.data?.list || [];
-            }
+            // httpClient 已解包 API 响应的 data 字段，此处直接取 list
+            videos = response.list || response.data?.list || [];
 
             // 转换为标准格式
             const results = videos.map((video: any) => this.transformHotVideo(video));

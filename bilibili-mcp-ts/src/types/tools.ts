@@ -43,6 +43,8 @@ export interface BangumiTimelineToolArgs {
 export interface DanmakuToolArgs {
     bvid: string;
     cid?: number;
+    dmType?: number;
+    page?: number;
 }
 
 /**

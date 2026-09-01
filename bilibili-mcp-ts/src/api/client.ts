@@ -118,6 +118,26 @@ export class HttpClient {
     }
 
     /**
+     * GET 请求（返回二进制数据，用于 protobuf 等接口）
+     */
+    public async getBuffer(url: string, params?: Record<string, any>, referer?: string): Promise<Buffer> {
+        const cookieString = await cookieManager.getCookieString(url);
+
+        const response = await this.client.request<ArrayBuffer>({
+            method: 'GET',
+            url,
+            params: params || {},
+            responseType: 'arraybuffer',
+            headers: {
+                'Cookie': cookieString,
+                'Referer': referer || url
+            }
+        });
+
+        return Buffer.from(response.data);
+    }
+
+    /**
      * POST 请求
      */
     public async post<T = any>(url: string, data?: Record<string, any>, referer?: string): Promise<T> {

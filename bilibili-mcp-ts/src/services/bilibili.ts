@@ -15,14 +15,16 @@ import type {
     VideoDetail,
     CompleteUserInfo,
     HotVideo,
-    BangumiDay
+    BangumiDay,
+    DanmakuResult
 } from '../types/index.js';
 import {
     SearchToolArgs,
     VideoDetailToolArgs,
     UserInfoToolArgs,
     HotContentToolArgs,
-    BangumiTimelineToolArgs
+    BangumiTimelineToolArgs,
+    DanmakuToolArgs
 } from '../types/tools.js';
 
 /**
@@ -58,9 +60,9 @@ export class BilibiliService {
     }
 
     /**
-     * 获取弹幕（新功能）
+     * 获取弹幕
      */
-    public async getDanmaku(params: { bvid: string; cid?: number }) {
+    public async getDanmaku(params: DanmakuToolArgs): Promise<DanmakuResult> {
         return videoService.getDanmaku(params);
     }
 

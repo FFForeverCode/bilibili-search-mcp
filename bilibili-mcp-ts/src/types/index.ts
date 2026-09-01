@@ -150,6 +150,24 @@ export interface DanmakuItem {
     action: string;
     pool: number;
     idStr: string;
+    attr: number;
+}
+
+/**
+ * 弹幕查询结果
+ */
+export interface DanmakuResult {
+    bvid: string;
+    cid: number;
+    /** 当前返回的弹幕分段（每段 6 分钟） */
+    page: number;
+    /** 弹幕分段总数 */
+    segmentCount: number;
+    /** 分P时长（秒） */
+    duration: number;
+    /** 本次返回的弹幕数量 */
+    total: number;
+    danmakus: DanmakuItem[];
 }
 
 /**
